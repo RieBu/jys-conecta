@@ -46,8 +46,7 @@ export function Header() {
       <header className="sticky top-0 z-[var(--z-nav)] bg-surface-container-lowest/90 backdrop-blur-md border-b border-surface-container/60 shadow-sm">
         <div className="w-full px-[clamp(18px,2.95vw,50px)] flex items-center justify-between h-[72px]">
           <Link to="/" className="flex items-center gap-3 cursor-pointer" aria-label="JyS Conectados inicio">
-            <img src={`${BASE}logo.jpeg`} alt="JyS Conectados" className="w-14 h-14 rounded-xl object-contain bg-surface-container-lowest p-1 ring-1 ring-surface-container" width={56} height={56} decoding="async" />
-            <span className="hidden sm:inline-flex px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-[13px] font-bold border border-surface-container-high">RUC 20608400959</span>
+            <img src={`${BASE}logo.jpeg`} alt="JyS Conectados" className="w-16 h-16 rounded-xl object-contain bg-surface-container-lowest p-1 ring-1 ring-surface-container" width={64} height={64} decoding="async" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1" aria-label="Navegación principal">

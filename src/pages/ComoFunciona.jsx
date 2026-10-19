@@ -111,8 +111,8 @@ export default function ComoFunciona() {
             <p className="text-[13px] font-bold tracking-widest uppercase text-tertiary text-center mb-4">Respaldado por líderes del empresariado auditado</p>
             <div className="marquee-group marquee-mask overflow-hidden">
               <div className="flex w-max animate-marquee items-center gap-3 md:gap-6 opacity-70">
-                {["Mi Tribu", "Hashtag Pe", "Pam Smith", "AP Arquitectos", "HPJ Tecnician", "Ópticas Mega Lens", "Credinorte", "Utama", "Andina Crepería", "Mi Tribu", "Hashtag Pe", "Pam Smith", "AP Arquitectos", "HPJ Tecnician", "Ópticas Mega Lens", "Credinorte", "Utama", "Andina Crepería"].map((name, i) => (
-                  <span key={`${name}-${i}`} className="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface-variant text-[14px] font-bold whitespace-nowrap cursor-default hover:bg-surface-container transition-colors duration-200" aria-hidden={i >= 9}>{name}</span>
+                {["Mi Tribu", "Hashtag Pe", "Pam Smith", "AP Arquitectos", "HPJ Tecnician", "CR Mobile", "Ópticas Mega Lens", "Credinorte", "Utama", "Andina Crepería", "Mi Tribu", "Hashtag Pe", "Pam Smith", "AP Arquitectos", "HPJ Tecnician", "CR Mobile", "Ópticas Mega Lens", "Credinorte", "Utama", "Andina Crepería"].map((name, i) => (
+                  <span key={`${name}-${i}`} className="px-4 py-2 rounded-lg bg-surface-container-low text-on-surface-variant text-[14px] font-bold whitespace-nowrap cursor-default hover:bg-surface-container transition-colors duration-200" aria-hidden={i >= 10}>{name}</span>
                 ))}
               </div>
             </div>
@@ -229,7 +229,7 @@ export default function ComoFunciona() {
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-[clamp(0.75rem,1.5vw,1.25rem)]">
             {[
-              { ic: "terminal", t: "Tecnología & TI", n: "1 convenio", bg: "bg-secondary-fixed text-secondary" },
+              { ic: "terminal", t: "Tecnología & TI", n: "2 convenios", bg: "bg-secondary-fixed text-secondary" },
               { ic: "campaign", t: "Marketing & Branding", n: "1 convenio", bg: "bg-tertiary-fixed text-tertiary" },
               { ic: "architecture", t: "Diseño & Construcción", n: "2 convenios", bg: "bg-tertiary-fixed text-tertiary" },
               { ic: "domain", t: "Inmobiliaria", n: "1 convenio", bg: "bg-primary-fixed text-primary" },
