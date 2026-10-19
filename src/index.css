@@ -1,0 +1,310 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --motion-fast: 150ms;
+    --motion-base: 250ms;
+    --motion-slow: 350ms;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --z-nav: 40;
+    --z-modal: 50;
+    --z-toast: 60;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-size: clamp(15.5px, 0.95vw, 17px);
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #faf8ff;
+    color: #131b2e;
+    overscroll-behavior: none;
+  }
+  ::-webkit-scrollbar { display: none; }
+  /* Focus visible system - Trust & Authority accessibility */
+  :focus-visible {
+    outline: 2px solid #D90429;
+    outline-offset: 2px;
+  }
+  /* Accessible skip link */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    background: #131b2e;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    z-index: 100;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbars while keeping scroll functionality */
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+
+  /* Staggered reveal for hero / cards - high-impact single orchestration */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fadeUp {
+    animation: fadeUp 0.6s var(--ease-out) both;
+  }
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+
+  /* Scroll-triggered reveal - soft, single orchestration */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    will-change: opacity, transform;
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Metric pulse - Trust & Authority effect */
+  @keyframes pulseSoft {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.03); opacity: 0.9; }
+  }
+  .animate-pulseSoft {
+    animation: pulseSoft 3s ease-in-out infinite;
+  }
+
+  /* Ambient floating orbs */
+  @keyframes floatSoft {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(0, -18px, 0) scale(1.04); }
+  }
+  .animate-float {
+    animation: floatSoft 9s ease-in-out infinite;
+  }
+  .animate-float-slow {
+    animation: floatSoft 13s ease-in-out infinite;
+  }
+
+  /* Infinite logo marquee */
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-mask {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+  .marquee-group:hover .animate-marquee {
+    animation-play-state: paused;
+  }
+
+  /* Carousel autoplay progress */
+  @keyframes carouselProgress {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+  .animate-carouselProgress {
+    transform-origin: left center;
+    animation: carouselProgress 5s linear forwards;
+  }
+
+  /* Focus ring utility for custom components */
+  .focus-ring:focus-visible {
+    box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.18);
+  }
+
+  /* Shine sweep for primary CTAs - diagonal light on hover */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-shine::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.35) 50%, transparent 100%);
+    transform: skewX(-20deg);
+    transition: left 0.6s var(--ease-out);
+    pointer-events: none;
+  }
+  .btn-shine:hover::before {
+    left: 150%;
+  }
+
+  /* Staggered card entrance - iOS-like spring */
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(14px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .animate-cardIn {
+    animation: cardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  }
+
+  /* Reduced motion - respect user preference */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* ---- Isometric play button (JyS crimson/amber) ---- */
+.iso-play {
+  width: 3.5rem;
+  height: 3.5rem;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  border-radius: 9999px;
+}
+.iso-play svg {
+  width: 100%;
+  height: 100%;
+}
+.iso-side { fill: #ac001e; transition: fill 300ms linear 0s; }
+.iso-side-back { fill: #7a0016; }
+.iso-top { fill: #d90429; transition: fill 300ms linear 0s; }
+.iso-play-shape { fill: #ac001e; }
+.iso-glow,
+.iso-glow-strong { opacity: 0; transition: opacity 300ms linear 0s; }
+.iso-play:hover .iso-glow { opacity: 0.5; }
+.iso-play:hover .iso-glow-strong { opacity: 1; }
+.iso-play:hover .iso-top { fill: #ac001e; }
+.iso-play:hover .iso-side { fill: #930018; }
+.iso-play:focus-visible .iso-top { stroke: #ffffff; stroke-width: 2px; }
+.iso-play:active .iso-top { fill: #ff6b7d; }
+
+/* ---- Gradient border glow on hover (Pilares) ---- */
+.glow-border { position: relative; }
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, #ac001e, #fea619, #283044);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+  pointer-events: none;
+}
+.glow-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 50% 0%, rgba(254, 166, 25, 0.12), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+  pointer-events: none;
+}
+.glow-border:hover::before,
+.glow-border:hover::after { opacity: 1; }
+
+/* ---- Social icon fill-up + rotateY (Footer) ---- */
+.social {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  color: #eef0ff;
+  transition: color 0.4s;
+}
+.social svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  position: relative;
+  z-index: 3;
+  transition: transform 0.5s;
+}
+.social::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  transition: top 0.4s var(--ease-out);
+}
+.social:hover::before { top: 0; }
+.social:hover svg { transform: rotateY(360deg); color: #ffffff; }
+.social--wa::before { background: #25d366; }
+.social--li::before { background: #0a66c2; }
+.social--fb::before { background: #1877f2; }
+
+/* Convenio card - borde/ring con el color dominante de cada imagen */
+.convenio-card {
+  --card-color: #ac001e;
+  border-color: color-mix(in srgb, var(--card-color) 55%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-color) 20%, transparent);
+  transition: box-shadow 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+}
+.convenio-card:hover {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--card-color) 40%, transparent),
+    0 18px 32px -14px color-mix(in srgb, var(--card-color) 60%, transparent);
+  transform: translateY(-3px);
+}
+.convenio-card--featured {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-color) 30%, transparent);
+}
+.convenio-card--featured:hover {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--card-color) 50%, transparent),
+    0 18px 32px -14px color-mix(in srgb, var(--card-color) 65%, transparent);
+  transform: translateY(-3px);
+}
+
+/* Botón 'Ver Detalle' - sólido rojo de marca con texto blanco */
+.convenio-card-cta {
+  background: #d90429;
+  color: #fff;
+  box-shadow: 0 4px 12px -6px rgba(217, 4, 41, 0.55);
+  transition: background 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+.convenio-card-cta:hover {
+  background: #ac001e;
+  transform: translateY(-1px);
+}
