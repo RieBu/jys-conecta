@@ -78,7 +78,7 @@ const rawServices = [
     footerLabel: "Beneficio Red",
     footerValue: "15% en diseño y ejecución",
     logo: "/pamsmith/logo.webp",
-    cover: "/pamsmith/cover.webp",
+    cover: "/pamsmith/local-3.webp",
     video: "/pamsmith/pamsmith.mp4",
     poster: "/pamsmith/poster.jpg",
     images: [
@@ -168,7 +168,7 @@ const rawServices = [
     footerLabel: "Descuento",
     footerValue: "20% en baterías",
     logo: "/crmobile/logo.webp",
-    cover: "/crmobile/cover.webp",
+    cover: "/crmobile/local-2.webp",
     video: "/crmobile/crmobile.mp4",
     poster: "/crmobile/poster.jpg",
     images: [
@@ -198,7 +198,7 @@ const rawServices = [
     footerLabel: "Beneficio Red",
     footerValue: "20% OFF + examen gratis",
     logo: "/optica/logo.webp",
-    cover: "/optica/cover.webp",
+    cover: "/optica/local-3.webp",
     video: "/optica/optica.mp4",
     poster: "/optica/poster.jpg",
     images: [

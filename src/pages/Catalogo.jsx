@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { services } from "../data/services";
 import ServiceCarousel from "../components/ServiceCarousel";
@@ -115,6 +115,39 @@ export default function Catalogo() {
   const [cat, setCat] = useState("all");
   const [modal, setModal] = useState(null);
 
+  useEffect(() => {
+    if (!modal) return;
+    const body = document.body;
+    const html = document.documentElement;
+    const scrollY = window.scrollY;
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      width: body.style.width,
+      overflow: body.style.overflow,
+      paddingRight: body.style.paddingRight,
+      scrollBehavior: html.style.scrollBehavior,
+    };
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+    if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
+
+    return () => {
+      body.style.position = prev.position;
+      body.style.top = prev.top;
+      body.style.width = prev.width;
+      body.style.overflow = prev.overflow;
+      body.style.paddingRight = prev.paddingRight;
+      html.style.scrollBehavior = "auto";
+      window.scrollTo(0, scrollY);
+      html.style.scrollBehavior = prev.scrollBehavior;
+    };
+  }, [modal]);
+
   const filtered = useMemo(() => {
     return services.filter((s) => {
       const matchCat = cat === "all" || s.category === cat;
@@ -224,7 +257,7 @@ export default function Catalogo() {
 
       {/* MODAL - optimizado responsive: ancho aprovechado */}
       {modal && (
-        <div className="fixed inset-0 z-[var(--z-modal)] flex items-center justify-center p-3 sm:p-4 lg:p-6 overflow-y-auto bg-inverse-surface/60 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div className="fixed inset-0 z-[var(--z-modal)] flex items-center justify-center p-3 sm:p-4 lg:p-6 overflow-y-auto overscroll-contain bg-inverse-surface/60 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="modal-title">
           <div className="fixed inset-0" onClick={() => setModal(null)} aria-hidden></div>
           <div className="relative w-full sm:w-[95vw] md:w-[92vw] lg:w-[92vw] xl:w-[88vw] max-w-[1120px] bg-surface-container-lowest rounded-2xl shadow-2xl overflow-hidden z-10 max-h-[96vh] sm:max-h-[92vh] flex flex-col animate-fadeUp">
             <div className="h-2 w-full bg-gradient-to-r from-primary-container via-secondary-container to-primary shrink-0" aria-hidden></div>
@@ -241,7 +274,7 @@ export default function Catalogo() {
             </div>
 
             {/* Contenido - columna única ordenada con secciones y divisores */}
-            <div className="px-4 sm:px-6 lg:px-8 py-5 sm:py-6 overflow-y-auto space-y-8 lg:space-y-10 flex-1">
+            <div className="px-4 sm:px-6 lg:px-8 py-5 sm:py-6 overflow-y-auto overscroll-contain space-y-8 lg:space-y-10 flex-1">
               {/* 1. Galería */}
               <section className="space-y-4" aria-label="Galería del local">
                 <SectionTitle icon="photo_library" chip={`${selected.images?.length || 0} fotos`}>Galería del Local</SectionTitle>

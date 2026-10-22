@@ -100,7 +100,7 @@ export default function ServiceCarousel({ images = [], title = "" }) {
                 decoding="async"
                 width={1100}
                 height={688}
-                className="w-full aspect-[16/10] object-cover select-none"
+                className="w-full aspect-[16/10] object-contain select-none"
                 draggable={false}
                 onError={(e) => { e.currentTarget.src = FALLBACK_IMG; }}
               />
